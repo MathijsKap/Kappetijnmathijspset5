@@ -65,7 +65,7 @@ public class MenuFragment extends ListFragment {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, try restarting the app", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, try again", Toast.LENGTH_SHORT).show();
                     }
                 });
         // Access the RequestQueue through your singleton class.
