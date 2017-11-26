@@ -47,7 +47,8 @@ public class MenuFragment extends ListFragment {
         Bundle arguments = this.getArguments();
         menu_value = arguments.getString("category");
         menuItems = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, dishesArray);
-        getshizzle();
+        String url = "https://resto.mprog.nl/menu";
+        getshizzle(url);
         this.setListAdapter(menuItems);
     }
 
@@ -59,8 +60,7 @@ public class MenuFragment extends ListFragment {
         Toast.makeText(getActivity().getApplicationContext(), pen, Toast.LENGTH_SHORT).show();
     }
 
-    public void getshizzle() {
-        String url = "https://resto.mprog.nl/menu";
+    public void getshizzle(String url) {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
