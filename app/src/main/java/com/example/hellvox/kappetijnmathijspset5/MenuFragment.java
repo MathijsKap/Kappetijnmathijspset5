@@ -47,8 +47,6 @@ public class MenuFragment extends ListFragment {
 
         Bundle arguments = this.getArguments();
         menu_value = arguments.getString("category");
-        //final String menu_value = intent.getStringExtra("menu_item");
-        //setTitle(menu_value);
         name = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, dishesArray);
         String url = "https://resto.mprog.nl/menu";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest

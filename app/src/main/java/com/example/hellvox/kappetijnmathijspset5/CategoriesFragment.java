@@ -85,11 +85,7 @@ public class CategoriesFragment extends ListFragment {
                 .replace(R.id.fragment_container, menuFragment)
                 .addToBackStack(null)
                 .commit();
-
-
-        //Toast.makeText(getActivity().getApplicationContext(), pen, Toast.LENGTH_SHORT).show();
     }
 
 }
 
-//Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, try restarting the app", Toast.LENGTH_SHORT).show();
