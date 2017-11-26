@@ -29,7 +29,7 @@ import java.util.ArrayList;
  */
 public class CategoriesFragment extends ListFragment {
 
-    ArrayAdapter<String> name;
+    ArrayAdapter<String> categories;
     ArrayList<String> menuArray = new ArrayList<String>();
 
     @Override
@@ -42,7 +42,7 @@ public class CategoriesFragment extends ListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        name = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, menuArray);
+        categories = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, menuArray);
         String url = "https://resto.mprog.nl/categories";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -52,7 +52,7 @@ public class CategoriesFragment extends ListFragment {
                         for(int i=0; i<array.length(); i++) {
                             menuArray.add(array.optString(i));
                         }
-                        name.notifyDataSetChanged();
+                        categories.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -62,7 +62,7 @@ public class CategoriesFragment extends ListFragment {
                 });
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsObjRequest);
-        this.setListAdapter(name);
+        this.setListAdapter(categories);
     }
 
     @Override
