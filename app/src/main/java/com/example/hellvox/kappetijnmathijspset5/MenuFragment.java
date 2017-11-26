@@ -28,7 +28,7 @@ import java.util.ArrayList;
  */
 public class MenuFragment extends ListFragment {
 
-    ArrayList<String> dishesArray = new ArrayList<String>();
+    ArrayList<String> dishesArray = new ArrayList<>();
     ArrayAdapter<String> menuItems;
     JSONObject ObjectArray;
     String menu_value;
@@ -46,21 +46,8 @@ public class MenuFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = this.getArguments();
         menu_value = arguments.getString("category");
-        menuItems = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, dishesArray);
+        menuItems = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, dishesArray);
         String url = "https://resto.mprog.nl/menu";
-        getshizzle(url);
-        this.setListAdapter(menuItems);
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        super.onListItemClick(l, v, position, id);
-        Object object = this.getListAdapter().getItem(position);
-        String pen = object.toString();
-        Toast.makeText(getActivity().getApplicationContext(), pen, Toast.LENGTH_SHORT).show();
-    }
-
-    public void getshizzle(String url) {
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
                     @Override
@@ -81,6 +68,16 @@ public class MenuFragment extends ListFragment {
                         Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, try again", Toast.LENGTH_SHORT).show();
                     }
                 });
+        // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsObjRequest);
+        this.setListAdapter(menuItems);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Object object = this.getListAdapter().getItem(position);
+        String pen = object.toString();
+        Toast.makeText(getActivity().getApplicationContext(), pen, Toast.LENGTH_SHORT).show();
     }
 }
