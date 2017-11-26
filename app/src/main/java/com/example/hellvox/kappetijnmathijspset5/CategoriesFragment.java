@@ -46,7 +46,6 @@ public class CategoriesFragment extends ListFragment {
         String url = "https://resto.mprog.nl/categories";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
                     @Override
                     public void onResponse(JSONObject response) {
                         JSONArray array = response.optJSONArray("categories");
@@ -56,13 +55,11 @@ public class CategoriesFragment extends ListFragment {
                         name.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
-
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, try restarting the app", Toast.LENGTH_SHORT).show();
                     }
                 });
-
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsObjRequest);
         this.setListAdapter(name);
