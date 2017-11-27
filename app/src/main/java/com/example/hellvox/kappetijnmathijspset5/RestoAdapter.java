@@ -35,7 +35,7 @@ public class RestoAdapter extends ResourceCursorAdapter {
 
         name.setText(title);
         amountt.setText("" + amount);
-        pricee.setText(""+price);
+        pricee.setText(""+price*amount);
         idd.setText(id);
 
         new DownloadImageTask((ImageView) view.findViewById(R.id.imageView))

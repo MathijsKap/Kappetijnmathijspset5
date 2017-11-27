@@ -3,6 +3,7 @@ package com.example.hellvox.kappetijnmathijspset5;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -41,13 +42,23 @@ public class RestoDatabase extends SQLiteOpenHelper {
         db.insert("orders", null, contentValues);
     }
 
-    public void update(long id, int amount) {
+    public void update(int id, int amount) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("amount", amount);
         db.update("orders",contentValues, "_id = " + id, null);
 
     }
+
+    public int get(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from orders where _id="+id, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            return 0;
+        }
+        return cursor.getInt(cursor.getColumnIndex( "amount"));
+    }
+
     public void delete(long id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("orders","_id = " + id, null);

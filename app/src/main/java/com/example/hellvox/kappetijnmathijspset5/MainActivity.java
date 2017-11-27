@@ -14,7 +14,8 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView textCartItemCount;
+    static TextView textCartItemCount;
+    static RestoDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setTitle("Restaurant");
-
+        db = RestoDatabase.getInstance(getApplicationContext());
 
         FragmentManager fm = getSupportFragmentManager();
         CategoriesFragment fragment = new CategoriesFragment();
@@ -57,8 +58,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void setupBadge() {
-        int mCartItemCount = 10;
+    public static void setupBadge() {
+        int mCartItemCount = 0;
+        for (int i=0;i<7;i++) {
+            mCartItemCount += db.get(i);
+        }
         if (textCartItemCount != null) {
             if (mCartItemCount == 0) {
                 if (textCartItemCount.getVisibility() != View.GONE) {
@@ -72,4 +76,11 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void onResume() {
+        // After a pause OR at startup
+        super.onResume();
+        setupBadge();
+    }
+
 }

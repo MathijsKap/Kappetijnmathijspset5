@@ -7,4 +7,5 @@
     <string name="amount">amount</string>
     <string name="price">Price</string>
     <string name="order">Order</string>
+    <string name="clear">Cancel</string>
 </resources>

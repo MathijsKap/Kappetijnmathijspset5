@@ -86,8 +86,17 @@ public class MenuFragment extends ListFragment {
         int dishid = object.getMenuid();
         int price = object.getPrice();
         String url = object.getURL();
-        addItem(dishid, name, price, 1, url);
-        Toast.makeText(getActivity().getApplicationContext(),"added", Toast.LENGTH_SHORT).show();
+        int amount = db.get(dishid);
+        if (amount > 0) {
+            amount += 1;
+            db.update(dishid, amount);
+            MainActivity.setupBadge();
+            Toast.makeText(getActivity().getApplicationContext(),"Added one more", Toast.LENGTH_SHORT).show();
+        } else {
+            addItem(dishid, name, price, 1, url);
+            MainActivity.setupBadge();
+            Toast.makeText(getActivity().getApplicationContext(),"Added", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void addItem(int id, String title, int price, int amount, String url) {
