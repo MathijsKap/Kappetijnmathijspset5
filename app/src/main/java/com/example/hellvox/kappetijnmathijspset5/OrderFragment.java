@@ -1,6 +1,7 @@
 package com.example.hellvox.kappetijnmathijspset5;
 
 
+import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,6 +33,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
     private ListView list;
     Button clearbutton;
     Button orderbutton;
+    Activity activityObj;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +45,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         orderbutton.setOnClickListener(this);
         clearbutton = (Button) view.findViewById(R.id.Clear);
         clearbutton.setOnClickListener(this);
+        activityObj = this.getActivity();
         return view;
     }
 
@@ -66,13 +69,12 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
                         @Override
                         public void onResponse(JSONObject response) {
                             int time = response.optInt("preparation_time");
-                            Toast.makeText(getActivity().getApplicationContext(), "Order coming in " + time + " minutes", Toast.LENGTH_LONG).show();
+                            Toast.makeText(activityObj, "Order coming in " + time + " minutes", Toast.LENGTH_LONG).show();
                         }
                     }, new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-                            Toast.makeText(getActivity().getApplicationContext(), "Something went wrong, try again.", Toast.LENGTH_LONG).show();
-
+                            Toast.makeText(activityObj, "Something went wrong, try again.", Toast.LENGTH_LONG).show();
                         }
                     });
                     // Access the RequestQueue through your singleton class.
