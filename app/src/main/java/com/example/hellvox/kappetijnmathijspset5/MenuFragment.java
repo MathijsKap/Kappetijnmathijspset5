@@ -91,15 +91,15 @@ public class MenuFragment extends ListFragment {
             amount += 1;
             db.update(dishid, amount);
             MainActivity.setupBadge();
-            Toast.makeText(getActivity().getApplicationContext(),"Added one more", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(),"Added one more!", Toast.LENGTH_SHORT).show();
         } else {
-            addItem(dishid, name, price, 1, url);
+            addItem(dishid, name, price, url);
             MainActivity.setupBadge();
-            Toast.makeText(getActivity().getApplicationContext(),"Added", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(),"Added!", Toast.LENGTH_SHORT).show();
         }
     }
 
-    public void addItem(int id, String title, int price, int amount, String url) {
-        db.insertOrder(id, title, price, amount, url);
+    public void addItem(int id, String title, int price, String url) {
+        db.insertOrder(id, title, price, 1, url);
     }
 }

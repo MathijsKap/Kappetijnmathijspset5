@@ -4,13 +4,14 @@ import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 
@@ -26,6 +27,7 @@ public class RestoAdapter extends ResourceCursorAdapter {
         TextView idd = view.findViewById(R.id.id);
         TextView amountt = view.findViewById(R.id.textamount);
         TextView pricee = view.findViewById(R.id.textPrice);
+        ImageView imageView = view.findViewById(R.id.image);
 
         String title = cursor.getString(cursor.getColumnIndex( "title"));
         String id  = cursor.getString(cursor.getColumnIndex( "_id"));
@@ -33,19 +35,20 @@ public class RestoAdapter extends ResourceCursorAdapter {
         int price = cursor.getInt(cursor.getColumnIndex( "price"));
         String image = cursor.getString(cursor.getColumnIndex("url"));
 
+        Picasso.with(context)
+                .load(image)
+                .placeholder(R.drawable.ic_food_fork_drink)
+                .into(imageView);
         name.setText(title);
         amountt.setText("" + amount);
         pricee.setText(""+price*amount);
         idd.setText(id);
-
-        new DownloadImageTask((ImageView) view.findViewById(R.id.imageView))
-                .execute(image);
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
-        public DownloadImageTask(ImageView bmImage) {
+        private DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 

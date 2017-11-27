@@ -38,7 +38,7 @@ public class RestoDatabase extends SQLiteOpenHelper {
         contentValues.put("title", title);
         contentValues.put("price", price);
         contentValues.put("amount", amount);
-        contentValues.put("url", amount);
+        contentValues.put("url", url);
         db.insert("orders", null, contentValues);
     }
 
