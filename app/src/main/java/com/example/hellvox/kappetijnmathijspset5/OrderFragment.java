@@ -48,7 +48,6 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         clearbutton = (Button) view.findViewById(R.id.Clear);
         clearbutton.setOnClickListener(this);
         activityObj = this.getActivity();
-        total();
         return view;
     }
 
@@ -85,7 +84,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
                     MySingleton.getInstance(getContext()).addToRequestQueue(jsObjRequest);
                     updateData();
                     MainActivity.setupBadge();
-                } else Toast.makeText(getActivity().getApplicationContext(), "Empty order!", Toast.LENGTH_LONG).show();
+                } else Toast.makeText(activityObj, "Empty order!", Toast.LENGTH_LONG).show();
                 dismiss();
                 break;
           }
