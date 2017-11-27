@@ -32,6 +32,9 @@ public class MenuFragment extends ListFragment {
     ArrayAdapter<String> menuItems;
     JSONObject ObjectArray;
     String menu_value;
+    ArrayList<Food> foodList = new ArrayList<>();
+    FoodListAdapater adapter;
+    static RestoDatabase db;
 
 
     @Override
@@ -46,7 +49,9 @@ public class MenuFragment extends ListFragment {
         super.onCreate(savedInstanceState);
         Bundle arguments = this.getArguments();
         menu_value = arguments.getString("category");
-        menuItems = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, dishesArray);
+        db = RestoDatabase.getInstance(getActivity().getApplicationContext());
+        adapter = new FoodListAdapater(getContext(), R.layout.adapter_view_layout, foodList);
+
         String url = "https://resto.mprog.nl/menu";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
@@ -56,10 +61,10 @@ public class MenuFragment extends ListFragment {
                         for(int i=0; i<array.length(); i++) {
                             ObjectArray = array.optJSONObject(i);
                             if (ObjectArray.optString("category").equals(menu_value)) {
-                                dishesArray.add(ObjectArray.optString("name"));
+                                foodList.add(new Food(ObjectArray.optString("name"), ObjectArray.optInt("price"), ObjectArray.optInt("id"), ObjectArray.optString("image_url")));
                             }
                         }
-                        menuItems.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
                     }
                 }, new Response.ErrorListener() {
 
@@ -70,14 +75,22 @@ public class MenuFragment extends ListFragment {
                 });
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(getActivity().getApplicationContext()).addToRequestQueue(jsObjRequest);
-        this.setListAdapter(menuItems);
+        this.setListAdapter(adapter);
     }
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        Object object = this.getListAdapter().getItem(position);
-        String pen = object.toString();
-        Toast.makeText(getActivity().getApplicationContext(), pen, Toast.LENGTH_SHORT).show();
+        Food object = (Food) this.getListAdapter().getItem(position);
+        String name = object.getName();
+        int dishid = object.getMenuid();
+        int price = object.getPrice();
+        String url = object.getURL();
+        addItem(dishid, name, price, 1, url);
+        Toast.makeText(getActivity().getApplicationContext(),"added", Toast.LENGTH_SHORT).show();
+    }
+
+    public void addItem(int id, String title, int price, int amount, String url) {
+        db.insertOrder(id, title, price, amount, url);
     }
 }
