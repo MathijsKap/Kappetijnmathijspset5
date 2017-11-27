@@ -34,6 +34,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
     Button clearbutton;
     Button orderbutton;
     Activity activityObj;
+    TextView total;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,11 +42,13 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         View view = inflater.inflate(R.layout.fragment_order, container, false);
         list = view.findViewById(R.id.list);
         list.setOnItemLongClickListener(new GoButtonLongClickListener());
+        total = (TextView) view.findViewById(R.id.total);
         orderbutton = (Button) view.findViewById(R.id.Order);
         orderbutton.setOnClickListener(this);
         clearbutton = (Button) view.findViewById(R.id.Clear);
         clearbutton.setOnClickListener(this);
         activityObj = this.getActivity();
+        total();
         return view;
     }
 
@@ -56,6 +59,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         mCursor = db.selectAll();
         adapter = new RestoAdapter(getContext(), mCursor, 0);
         list.setAdapter(adapter);
+        total();
     }
 
     @Override
@@ -92,6 +96,14 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         }
     }
 
+    private void total() {
+        int totaal = 0;
+        for (int i=0;i<7;i++) {
+            totaal += db.get(i)*db.getprice(i);
+        }
+        total.setText("Total: €"+ totaal);
+    }
+
     private class GoButtonLongClickListener implements AdapterView.OnItemLongClickListener {
         @Override
         public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
@@ -101,6 +113,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
             Toast.makeText(getContext(), "Deleted!", Toast.LENGTH_SHORT).show();
             updateData();
             MainActivity.setupBadge();
+            total();
             return true;
         }
     }

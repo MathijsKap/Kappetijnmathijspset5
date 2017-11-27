@@ -59,6 +59,15 @@ public class RestoDatabase extends SQLiteOpenHelper {
         return cursor.getInt(cursor.getColumnIndex( "amount"));
     }
 
+    public int getprice(int id) {
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery("select * from orders where _id="+id, null);
+        if (!(cursor.moveToFirst()) || cursor.getCount() ==0){
+            return 0;
+        }
+        return cursor.getInt(cursor.getColumnIndex( "price"));
+    }
+
     public void delete(long id) {
         SQLiteDatabase db = getWritableDatabase();
         db.delete("orders","_id = " + id, null);

@@ -9,4 +9,5 @@
     <string name="order">Order</string>
     <string name="clear">Cancel</string>
     <string name="image">Image</string>
+    <string name="total">Total</string>
 </resources>

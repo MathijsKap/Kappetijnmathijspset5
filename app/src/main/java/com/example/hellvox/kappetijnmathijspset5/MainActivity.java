@@ -1,6 +1,7 @@
 package com.example.hellvox.kappetijnmathijspset5;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MenuItemCompat;
@@ -16,6 +17,8 @@ public class MainActivity extends AppCompatActivity {
 
     static TextView textCartItemCount;
     static RestoDatabase db;
+    private final String TAG = getClass().getSimpleName();
+    private CategoriesFragment mHomeFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +28,19 @@ public class MainActivity extends AppCompatActivity {
         setTitle("Restaurant");
         db = RestoDatabase.getInstance(getApplicationContext());
 
-        FragmentManager fm = getSupportFragmentManager();
-        CategoriesFragment fragment = new CategoriesFragment();
-        FragmentTransaction ft = fm.beginTransaction();
-        ft.replace(R.id.fragment_container, fragment, "categories");
-        ft.commit();
+        // source: https://stackoverflow.com/questions/5164126/retain-the-fragment-object-while-rotating
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(TAG);
+        if(fragment == null) {
+            // Create the detail fragment and add it to the activity using a fragment transaction.
+            mHomeFragment = new CategoriesFragment();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragment_container, mHomeFragment, TAG)
+                    .commit();
+        } else {
+            // get our old fragment back !
+            mHomeFragment = (CategoriesFragment) fragment;
+        }
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,11 +87,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
-    public void onResume() {
-        // After a pause OR at startup
-        super.onResume();
-        setupBadge();
-    }
-
 }
