@@ -11,7 +11,6 @@ public class RestoDatabase extends SQLiteOpenHelper {
 
     private static RestoDatabase instance;
 
-
     private RestoDatabase(Context context) {
         super(context, "todo", null, 1);
     }

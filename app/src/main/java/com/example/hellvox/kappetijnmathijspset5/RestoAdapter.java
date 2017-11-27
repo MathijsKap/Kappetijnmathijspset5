@@ -2,18 +2,12 @@ package com.example.hellvox.kappetijnmathijspset5;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ResourceCursorAdapter;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
-
-import java.io.InputStream;
 
 public class RestoAdapter extends ResourceCursorAdapter {
 

@@ -23,9 +23,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
+
 public class MenuFragment extends ListFragment {
 
     ArrayList<String> dishesArray = new ArrayList<>();
@@ -91,11 +89,11 @@ public class MenuFragment extends ListFragment {
             amount += 1;
             db.update(dishid, amount);
             MainActivity.setupBadge();
-            Toast.makeText(getActivity().getApplicationContext(),"Added one more!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(),"Added one more " + name + "!", Toast.LENGTH_SHORT).show();
         } else {
             addItem(dishid, name, price, url);
             MainActivity.setupBadge();
-            Toast.makeText(getActivity().getApplicationContext(),"Added!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(),"Added "+name+"!", Toast.LENGTH_SHORT).show();
         }
     }
 
