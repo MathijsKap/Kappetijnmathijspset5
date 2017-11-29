@@ -10,12 +10,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-/**
- * Created by HellVox on 15-11-2017.
- */
-
 public class FoodListAdapater extends ArrayAdapter<Food> {
 
+    // Initialize variables
     private Context mContext;
     int mResource;
 
@@ -25,6 +22,7 @@ public class FoodListAdapater extends ArrayAdapter<Food> {
         mResource = resource;
     }
 
+    // Function to set a food object into a item from a list.
     @NonNull
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

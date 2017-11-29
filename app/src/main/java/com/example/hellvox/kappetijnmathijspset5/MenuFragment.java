@@ -3,12 +3,10 @@ package com.example.hellvox.kappetijnmathijspset5;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -26,8 +24,7 @@ import java.util.ArrayList;
 
 public class MenuFragment extends ListFragment {
 
-    ArrayList<String> dishesArray = new ArrayList<>();
-    ArrayAdapter<String> menuItems;
+    // Initialize variables
     JSONObject ObjectArray;
     String menu_value;
     ArrayList<Food> foodList = new ArrayList<>();
@@ -50,6 +47,7 @@ public class MenuFragment extends ListFragment {
         db = RestoDatabase.getInstance(getActivity().getApplicationContext());
         adapter = new FoodListAdapater(getContext(), R.layout.adapter_view_layout, foodList);
 
+        // Get the menu items in a given categorie and set the result in a food object.
         String url = "https://resto.mprog.nl/menu";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest
                 (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

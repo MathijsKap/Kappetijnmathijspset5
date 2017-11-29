@@ -25,6 +25,7 @@ import java.util.ArrayList;
 
 public class CategoriesFragment extends ListFragment {
 
+    // Initialize variables
     ArrayAdapter<String> categories;
     ArrayList<String> menuArray = new ArrayList<String>();
 
@@ -38,6 +39,7 @@ public class CategoriesFragment extends ListFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Set the adapater to the list and get the categories with a json request.
         categories = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, menuArray);
         String url = "https://resto.mprog.nl/categories";
         JsonObjectRequest jsObjRequest = new JsonObjectRequest

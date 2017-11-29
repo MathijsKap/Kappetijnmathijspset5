@@ -1,15 +1,14 @@
 package com.example.hellvox.kappetijnmathijspset5;
 
-/**
- * Created by HellVox on 15-11-2017.
- */
-
 public class Food {
+
+    // Initialize variables
     private String name;
     private String url;
     private int price;
     private int menuid;
 
+    // Construct the food object.
     public Food(String name, int price, int menuid, String url) {
         this.name = name;
         this.price = price;

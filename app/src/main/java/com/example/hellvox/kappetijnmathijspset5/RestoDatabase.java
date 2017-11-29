@@ -3,12 +3,12 @@ package com.example.hellvox.kappetijnmathijspset5;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class RestoDatabase extends SQLiteOpenHelper {
 
+    // Initialize variables
     private static RestoDatabase instance;
 
     private RestoDatabase(Context context) {

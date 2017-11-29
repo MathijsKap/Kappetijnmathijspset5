@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    // Initialize variables
     static TextView textCartItemCount;
     static RestoDatabase db;
     private final String TAG = getClass().getSimpleName();
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    // Function to make a badge with the amount of items in the cart.
+    // source: https://stackoverflow.com/questions/43194243/notification-badge-on-action-item-android
     public static void setupBadge() {
         int mCartItemCount = 0;
         for (int i=0;i<7;i++) {

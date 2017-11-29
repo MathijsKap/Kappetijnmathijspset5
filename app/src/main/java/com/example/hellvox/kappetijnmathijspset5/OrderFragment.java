@@ -26,6 +26,7 @@ import org.json.JSONObject;
 
 public class OrderFragment extends DialogFragment implements View.OnClickListener {
 
+    // Initialize variables
     static RestoDatabase db;
     static RestoAdapter adapter;
     Cursor mCursor;
@@ -35,6 +36,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
     Activity activityObj;
     TextView total;
 
+    // Set all the correct variables to the corresponding items.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +61,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         list.setAdapter(adapter);
         total();
     }
+
 
     @Override
     public void onClick(View view) {
@@ -94,6 +97,7 @@ public class OrderFragment extends DialogFragment implements View.OnClickListene
         }
     }
 
+    // Function to get the total price.
     private void total() {
         int totaal = 0;
         for (int i=0;i<7;i++) {
